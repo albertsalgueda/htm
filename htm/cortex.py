@@ -66,8 +66,6 @@ class Layer3b( object ):
 		self.activeDendrites   = []
 		self.matchingDendrites = []
 
-
-
 # Functions
 
 def initReceptiveFields( layerIn, layer ):

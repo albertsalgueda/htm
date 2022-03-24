@@ -1,23 +1,10 @@
-"""
-TODO
-+ Fix and finish Temporal Memory
-+ Consider re-adding Synapse class to cortex.py
-+ Update README.md
-+ Add learning to spatial pooler
-+ Add better timing maybe in graphics?
-+ Clean g_scene code
-+ Clean entire code!  Make standardize class, function, and variable names to a convention
-+ For all files change tabs to spaces
-+ Clean up repository (pycache)
-"""
-
 import htm.encoder as encoder
 import htm.cortex as cortex
 import htm.spatial_pooler as sp
 import htm.temporal_memory as tm
-
 import numpy as np
 import time
+from htm.cortex import initReceptiveFields
 
 # Cortex variables
 numInputsX = 25
@@ -53,10 +40,6 @@ def loop():
 	time.sleep(0.05)
 	print( layerIn, layer3b )
 
-def main():
-	g_main.initGraphics( layerIn, layer3b )
-	glutDisplayFunc( loop )
-	glutIdleFunc( loop )
-	glutMainLoop()
-
-main()
+print('Total number of columns in the intelligent ststem',len(layer3b.columns))
+print('Total number of neurons in the intelligent system',len(layer3b.columns)*len(layer3b.columns[0].neurons))
+initReceptiveFields( layerIn, layer3b )
