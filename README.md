@@ -2,7 +2,7 @@
 
 This project is a simple Python implementation of Numenta's HTM algorithm along with visualization software.  The purpose of this project is to achieve a foundational understanding of "Thousand Brain Theory" and visualize how HTM algorithms work. 
 
-Learn more machine intelligence [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
+Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
 
 ## Structure of the Cortex
 
