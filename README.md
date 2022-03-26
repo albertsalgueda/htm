@@ -1,6 +1,8 @@
 # Hierarchical Temporal Memory (HTM)
 
-This project is a simple Python implementation of Numenta's HTM algorithm along with visualization software using OpenGL.  The purpose of this project is to achieve a foundational understanding of cortical neuroscience principles and demonstrate these intelligence principles by implementing HTM algorithms.
+This project is a simple Python implementation of Numenta's HTM algorithm along with visualization software.  The purpose of this project is to achieve a foundational understanding of "Thousand Brain Theory" and visualize how HTM algorithms work. 
+
+Learn more machine intelligence [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
 
 ## Structure of the Cortex
 
