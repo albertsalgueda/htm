@@ -22,7 +22,7 @@ for c in activeColumns(t):
             s.permanence += synPermActiveInc
             s.permanence = min(1.0, s.permanence)
         else:
-            s.permanence ­= synPermInactiveDec
+            s.permanence = synPermInactiveDec
             s.permanence = max(0.0, s.permanence)
 for c in columns:
     activeDutyCycle(c) = updateActiveDutyCycle(c)
