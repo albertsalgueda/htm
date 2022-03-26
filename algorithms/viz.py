@@ -2,6 +2,8 @@ import numpy as np
 from PIL import Image
 import pygame
 
+#WORK IN PROGRESS
+
 def grid(window,size,rows):
     distance = size//rows
     x = 0

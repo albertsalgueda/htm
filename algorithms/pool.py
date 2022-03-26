@@ -1,6 +1,6 @@
 import numpy as np
 
-
+##WORK IN PROGRESS
 
 #Compute the overlap with the current input for each column
 for c in columns:
