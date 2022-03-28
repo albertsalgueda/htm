@@ -8,7 +8,7 @@ Join the community [here](https://discord.gg/NdFm57nB)
 
 ## Cortical Columns
 
-Cortical columns are the basic processing unit of the neocortex. They all have a universal learning algorithm which its understanding and implementation is the main goal of HTM. 
+Cortical columns are the basic processing unit of the neocortex. They all have a universal learning algorithm which its understanding and implementation is the main goal of HTM. The brain is made of around 150,000 cortical columns connected in a hierarchical way. 
 
 #### Mini-columns
 
