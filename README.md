@@ -1,37 +1,12 @@
 # Hierarchical Temporal Memory (HTM)
 
-This project is a simple Python implementation of Numenta's HTM algorithm along with visualization software.  The purpose of this project is to achieve a foundational understanding of "Thousand Brain Theory" and visualize how HTM algorithms work. 
+This project is a simple Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software.  
 
 Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
+Join the community [here](https://discord.gg/NdFm57nB)
 
-## Structure of the Cortex
 
-#### Cortex
-
-The human cortex is about 2-3mm thick with many regions arranged in a hierarchy.  Some basic regions include:
-+ Frontal Lobe: 
-+ Parietal Lobe:
-+ Occipical Lobe: vision
-+ Temporal Lobe:
-
-#### Region
-
-Each region of the cortex typically contains 6 layers (5 layers of neurons and an axon layer).
-
-#### Layers
-
-+ Pial Surface
-+ Layer 1: 
-+ Layer 2: 
-+ Layer 3: One of the primary feedforward layers. Multiple cells per column useful for inference and prediction of moving images (Numenta).
-+ Layer 4: One of the primary feedforward layers. One cell per column useful in forming representations that are invariant to spatial changes (Numenta).
-+ Layer 5: Motor behavior
-+ Layer 6: Feedback
-+ White Matter
-
-Each layer contains ocolumns of neurons that all respond to a particular stimulus.
-
-#### Columns
+#### Cortical Columns
 
 Mini-columns are  vertical structures through the 6 layers of cortex comprising of about 80-120 neurons.  A neuron's feed forward input, the proximal dendrite, attaches to a receptive field, or particular area of sensory space in which stimulus will trigger the firing of the neuron.  Neurons in a minicolumn have the same receptive field.  Therefore in the HTM algorithm for organizational purposes, each column stores proximal dendrites rather than each neuron in a column.
 
@@ -63,4 +38,3 @@ The spatial pooling function operates on a layer of a cortical region.  It uses 
 ## Temporal Memory Function
 
 The temporal memory function operates at the neuronal level by by using each neuron's basal dendrite input.  Apical dendrites have not been implemented in this version of the algorithm.
-
