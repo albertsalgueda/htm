@@ -6,7 +6,11 @@ Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algor
 Join the community [here](https://discord.gg/NdFm57nB)
 
 
-#### Cortical Columns
+## Cortical Columns
+
+Cortical columns are the basic processing unit of the neocortex. They all have a universal learning algorithm which its understanding and implementation is the main goal of HTM. 
+
+#### Mini-columns
 
 Mini-columns are  vertical structures through the 6 layers of cortex comprising of about 80-120 neurons.  A neuron's feed forward input, the proximal dendrite, attaches to a receptive field, or particular area of sensory space in which stimulus will trigger the firing of the neuron.  Neurons in a minicolumn have the same receptive field.  Therefore in the HTM algorithm for organizational purposes, each column stores proximal dendrites rather than each neuron in a column.
 
