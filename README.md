@@ -5,6 +5,9 @@ This project is a simple Python 3.8+ implementation of [Numenta's HTM](https://n
 Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
 Join the community [here](https://discord.gg/NdFm57nB)
 
+## Under construction
+
+This project is still under development...
 
 ## Cortical Columns
 
