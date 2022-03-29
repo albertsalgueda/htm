@@ -1,22 +1,62 @@
+from xml.dom.expatbuilder import parseString
 from matplotlib import pyplot, colors
 import numpy as np  
 
 potential_connections = 0.85 # % of potential connections 
 active_columns = 40 # number of 
 inactive_decrement = .008 # decrement step in permenence for de-learning
-acrive_increment = 0.1  # increment step for reinforcing connections
+active_increment = 0.1  # increment step for reinforcing connections
 permenence_threshold = 0.5 # the threshold that will determine if the connection is active or not
 overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
 
-class Column():
-    def __init__(self,id,permenence_threshold,connections):
-        self.id = id
+class Connection():
+    def __init__(self,input,column,active_increment,inactive_decrement,permenence_threshold):
+        self.input = input  
+        self.column = column.id
+        self.connection = self.create_connection(input,column)
+        self.active_increment = active_increment
+        self.inactive_decrement = inactive_decrement
         self.permenence_threshold = permenence_threshold
-        self.connections = connections
-        
-    def learn(self):
+
+        self.active = self.isActive()
+
+    def create_connection(self,input,column):
+        import random
+        synapse = {
+                'input':input,
+                'column':column, 
+                'permenance':random.randint(0,100)/100
+                } 
+        return synapse
+    def isActive(self):
+        if self.connection['permenance']>= self.permenence_threshold: 
+            return True
+        return False
+    def increment(self):
+        self.connection['permenance'] += self.active_increment
+    def decrement(self):
+        self.connection['permenance'] -= self.inactive_decrement
+    
+class Column():
+    def __init__(self,id,overlap_threshold):
+        self.id = id
+        self.overlap_threshold = overlap_threshold
+        self.connections = []
+        self.active = False
+    
+    def create_connections(self,input):
         pass
 
+    def learn(self,connection):
+        pass
+
+    def isActive(self):
+        #calculate the number of overlapping connections 
+        overlapping = 0 #TODO
+        if overlapping >= self.overlap_threshold:
+            self.active = True  
+        else: self.active = False
+        return self.active
 
 class SpatialPool():
     def __init__(self,columns,overlap_threshold,potential_connections):
@@ -27,4 +67,7 @@ class SpatialPool():
     def initialize(self):
         pass
 
-#each connection has a permenence value
+col = Column(0,overlap_threshold)
+c = Connection((0,0),col,active_increment,inactive_decrement,permenence_threshold)
+print(c.connection)
+print(c.isActive())
