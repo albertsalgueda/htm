@@ -1,3 +1,4 @@
 nupic
 venv
 __pyscache__
+.DS_Store
