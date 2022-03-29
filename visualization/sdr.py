@@ -5,7 +5,7 @@ import numpy as np
 # for building each row in the 2d matrix I use list comprehension in Python
 import random
 
-data = np.zeros((32,32))
+data = np.zeros((64,64))
 sparcity = 0.02 
 active = len(data)**2*sparcity
 # add 2% sparcity into the distribution

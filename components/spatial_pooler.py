@@ -1,29 +1,30 @@
-# spatial_pooler.py
+from matplotlib import pyplot, colors
+import numpy as np  
 
-import numpy as np
-import htm.cortex as cortex
+potential_connections = 0.85 # % of potential connections 
+active_columns = 40 # number of 
+inactive_decrement = .008 # decrement step in permenence for de-learning
+acrive_increment = 0.1  # increment step for reinforcing connections
+permenence_threshold = 0.5 # the threshold that will determine if the connection is active or not
+overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
 
-def computeSpatialPooler( layerIn, layer ):
-	columns = layer.columns
-	numActiveColumns = layer.numActiveColumns
-	pSynThreshold = layer.pSynThreshold
+class Column():
+    def __init__(self,id,permenence_threshold,connections):
+        self.id = id
+        self.permenence_threshold = permenence_threshold
+        self.connections = connections
+        
+    def learn(self):
+        pass
 
-	overlap = []
 
-	# Overlap
-	for column in columns:
-		column.isActive = False
-		dendrite = column.dendrites[-1]
-		overlap.append( cortex.computeOverlap( dendrite, pSynThreshold ) )
+class SpatialPool():
+    def __init__(self,columns,overlap_threshold,potential_connections):
+        self.columns = columns
+        self.overlap_threshold = overlap_threshold
+        self.potential_connections = potential_connections
 
-	# Inhibition 
-	# TODO: Add random tiebreaker
-	for _ in range( numActiveColumns ):
-		idxAC = np.argmax( overlap )
-		layer.columns[idxAC].isActive = True
-		overlap[idxAC] = 0
+    def initialize(self):
+        pass
 
-	# Learning
-	# TODO: Add learning
-
-#	print( [column.idx for column in columns if column.is_active == True] )
+#each connection has a permenence value
