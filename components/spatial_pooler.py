@@ -28,12 +28,15 @@ class Connection():
                 'permenance':random.randint(0,100)/100
                 } 
         return synapse
+
     def isActive(self):
         if self.connection['permenance']>= self.permenence_threshold: 
             return True
         return False
+
     def increment(self):
         self.connection['permenance'] += self.active_increment
+
     def decrement(self):
         self.connection['permenance'] -= self.inactive_decrement
     
@@ -65,7 +68,34 @@ class SpatialPool():
         self.potential_connections = potential_connections
 
     def initialize(self):
+        #create the spatial pool
         pass
+
+    def overlap(self):
+        #Compute the overlap with the current input for each column
+        pass
+
+    def inhibition(self):
+        #Compute the winning columns after inhibition
+        pass
+
+    def learn(self):
+        #Update synapse permanences and internal variables
+        pass
+
+    def transform(self):
+        #Transform self.columns into a 2d numpy array ( active=1, inactive=0 )
+        #returns numpy array
+        pass
+
+    def visualize(self):
+        #Display Spatial Pooling
+        sdr = self.transform()
+        colormap = colors.ListedColormap(["white","red"])
+        pyplot.figure(figsize=(5,5))
+        pyplot.imshow(sdr,cmap=colormap)
+        pyplot.show()
+
 
 col = Column(0,overlap_threshold)
 c = Connection((0,0),col,active_increment,inactive_decrement,permenence_threshold)
