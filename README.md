@@ -1,13 +1,13 @@
 # Hierarchical Temporal Memory (HTM)
 
-This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software. The aim of this project is to both understand the implementation of cortical theory while creating a simplified version.   
+This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software. The aim of this project is to both understand the implementation of cortical theory while creating a simplified functional version.   
 
 Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
 Join the community [here](https://discord.gg/NdFm57nB)
 
-## Under construction
+## WARNING !!!
 
-This project is still under development...
+This project is still under development... The software is still not finished. 
 
 ## Cortical Columns
 
