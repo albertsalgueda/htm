@@ -48,9 +48,7 @@ class Column():
         self.active = False
     
     def create_connections(self,input):
-        pass
-
-    def learn(self,connection):
+        #initialize connections to input source
         pass
 
     def isActive(self):
