@@ -1,8 +1,5 @@
 from matplotlib import pyplot, colors
 import numpy as np  
-# next, i will set up a 8 x 8 2d matrix, with random bits as elements (0 or 1); 
-# for randomization of integers (0 or 1) I use the random module in Python;
-# for building each row in the 2d matrix I use list comprehension in Python
 import random
 
 data = np.zeros((64,64))
