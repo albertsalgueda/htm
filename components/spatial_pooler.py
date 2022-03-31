@@ -10,21 +10,21 @@ permenence_threshold = 0.5 # the threshold that will determine if the connection
 overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
 
 class Connection():
-    def __init__(self,input,column,active_increment,inactive_decrement,permenence_threshold):
+    def __init__(self,input,neuron,active_increment,inactive_decrement,permenence_threshold):
         self.input = input  
-        self.column = column.id
-        self.connection = self.create_connection(input,column)
+        self.column = neuron.id
+        self.connection = self.create_connection(input,neuron)
         self.active_increment = active_increment
         self.inactive_decrement = inactive_decrement
         self.permenence_threshold = permenence_threshold
 
         self.active = self.isActive()
 
-    def create_connection(self,input,column):
+    def create_connection(self,input,neuron):
         import random
         synapse = {
                 'input':input,
-                'column':column, 
+                'neuron':neuron, 
                 'permenance':random.randint(0,100)/100
                 } 
         return synapse
@@ -39,17 +39,18 @@ class Connection():
 
     def decrement(self):
         self.connection['permenance'] -= self.inactive_decrement
+
+class Neuron():
+    def __init__(self,id,connections):
+        self.id = id
+        self.connections = [connections]
+        self.state = None # Active | Inactive | Predictive
     
 class Column():
-    def __init__(self,id,overlap_threshold):
+    def __init__(self,id,neurons,overlap_threshold):
         self.id = id
         self.overlap_threshold = overlap_threshold
-        self.connections = []
         self.active = False
-    
-    def create_connections(self,input):
-        #initialize connections to input source
-        pass
 
     def isActive(self):
         #calculate the number of overlapping connections 
@@ -93,7 +94,6 @@ class SpatialPool():
         pyplot.figure(figsize=(5,5))
         pyplot.imshow(sdr,cmap=colormap)
         pyplot.show()
-
 
 col = Column(0,overlap_threshold)
 c = Connection((0,0),col,active_increment,inactive_decrement,permenence_threshold)
