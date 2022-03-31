@@ -2,3 +2,6 @@ nupic
 venv
 __pyscache__
 .DS_Store
+algorithm/__pyscache__
+components/__pyscache__
+visualization/__pyscache__

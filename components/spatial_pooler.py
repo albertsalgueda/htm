@@ -41,10 +41,11 @@ class Connection():
         self.connection['permenance'] -= self.inactive_decrement
 
 class Neuron():
-    def __init__(self,id,connections):
+    def __init__(self,id,connections,column):
         self.id = id
         self.connections = [connections]
         self.state = None # Active | Inactive | Predictive
+        self.column = column
     
 class Column():
     def __init__(self,id,neurons,overlap_threshold):
@@ -52,13 +53,23 @@ class Column():
         self.overlap_threshold = overlap_threshold
         self.active = False
 
+    def connect(self):
+        #connects neurons to input 
+        pass
+
+    def overlap(self,input):
+        #calculate the number of overlapping connections with input
+        overlap = 'TODO' #TODO
+        return overlap
+
     def isActive(self):
         #calculate the number of overlapping connections 
-        overlapping = 0 #TODO
+        overlapping = self.overlap() 
         if overlapping >= self.overlap_threshold:
             self.active = True  
         else: self.active = False
         return self.active
+    
 
 class SpatialPool():
     def __init__(self,columns,overlap_threshold,potential_connections):

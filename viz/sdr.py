@@ -7,7 +7,7 @@ sparcity = 0.02
 active = len(data)**2*sparcity
 # add 2% sparcity into the distribution
 while active>0:
-    print(active)
+    #print(active)
     i = random.randint(0,len(data)-1)
     j = random.randint(0,len(data)-1)
     data[i][j] = 1
@@ -18,3 +18,4 @@ colormap = colors.ListedColormap(["white","red"])
 pyplot.figure(figsize=(5,5))
 pyplot.imshow(data,cmap=colormap)
 pyplot.show()
+pyplot.savefig('sdr.png')
