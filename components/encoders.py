@@ -20,9 +20,9 @@ class TimeEncoder():
         return 'TODO'
 
 class WordEncoder():
-    def __init__(self):
+    def __init__(self,size):
         self.words = self.word2vec()
-
+        self.size = size
     def word2vec(self):
         #read word2vec file and save it as a dictionary
         with open("assets/words.txt") as f:
@@ -40,7 +40,7 @@ class WordEncoder():
 
     @classmethod
     def transform(word):
-        #takes a word vector and turns into a SDR
+        #takes a word vector and turns into a SDR of (size,size)
         #TODO
         """
         array([ 0.120765,  0.066397,  0.173003, -0.457878,  0.268186, -0.023906,

@@ -1,8 +1,10 @@
 """
 Use this document to test and experiment with the diferent components of the spatial pooler.py
 """
+
 from components.sdr import viz,generate_sdr,overlap,overlap_score
 from components.pooler import Connection,Neuron,Column,SpatialPool
+from components.encoders import TimeEncoder, WordEncoder 
 
 potential_connections = .85 # % of potential connections 
 active_columns = 40 # number of 
@@ -15,3 +17,5 @@ sparsity = .02
 size = 64
 
 sdr = viz(generate_sdr(size,sparsity))
+
+

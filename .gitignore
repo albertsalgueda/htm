@@ -4,4 +4,4 @@ __pyscache__
 .DS_Store
 algorithm/__pyscache__
 components/__pyscache__
-visualization/__pyscache__
+viz/__pyscache__

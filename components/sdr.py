@@ -34,7 +34,7 @@ def viz(sdr):
     """
     Turn SDR into grid-like representation. We accept 2d numpy array
     """
-    colormap = colors.ListedColormap(["white","red"])
+    colormap = colors.ListedColormap(["black","red"])
     pyplot.figure(figsize=(5,5))
     pyplot.imshow(sdr,cmap=colormap)
     pyplot.show()
