@@ -12,6 +12,8 @@ inactive_decrement = .008 # decrement step in permenence for de-learning
 active_increment = .1  # increment step for reinforcing connections
 permenence_threshold = .5 # the threshold that will determine if the connection is active or not
 overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
+column_density = 4 # number of neurons per miniColumnn
+
 
 sparsity = .02 
 size = 64

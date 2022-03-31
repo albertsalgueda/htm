@@ -3,7 +3,6 @@ from matplotlib import pyplot, colors
 import numpy as np  
 
 """
-Column ( here ) = miniColumn ( brain)
 Connection (here ) = synapsis ( brain )
 
 ARQUITECTURA:
@@ -21,7 +20,7 @@ Tienen un ratio de permanence: se puede modificar a través del aprendizaje. Si 
 class Connection():
     def __init__(self,input,neuron,active_increment,inactive_decrement,permenence_threshold):
         self.input = input  
-        self.column = neuron.id
+        self.miniColumn = neuron.id
         self.connection = self.create_connection(input,neuron)
         self.active_increment = active_increment
         self.inactive_decrement = inactive_decrement
@@ -50,17 +49,22 @@ class Connection():
         self.connection['permenance'] -= self.inactive_decrement
 
 class Neuron():
-    def __init__(self,id,connections,column):
+    def __init__(self,id,connections,miniColumn):
         self.id = id
         self.connections = [connections]
         self.state = None # Active | Inactive | Predictive
-        self.column = column
+        self.miniColumn = miniColumn
     
-class Column():
-    def __init__(self,id,neurons,overlap_threshold):
+class miniColumn():
+    def __init__(self,id,column_density,overlap_threshold):
         self.id = id
         self.overlap_threshold = overlap_threshold
         self.active = False
+        self.neurons = self.createNeurons(column_density)
+    
+    def createNeurons(self,column_density):
+        #creates neurons
+        pass
 
     def connect(self):
         #connects neurons to input 
@@ -81,14 +85,21 @@ class Column():
     
 
 class SpatialPool():
-    def __init__(self,columns,overlap_threshold,potential_connections):
-        self.columns = columns
+    def __init__(self,overlap_threshold,potential_connections,column_density=1,size=64):
         self.overlap_threshold = overlap_threshold
         self.potential_connections = potential_connections
+        self.size = size
+        self.miniColumns = self.initialize(size)
+        self.column_density = column_density
+        self.representation = np.zeros((size,size))
 
-    def initialize(self):
+    def initialize(self,size):
         #create the spatial pool
-        pass
+        id = 0
+        for i in range(size):
+            for j in range(size):
+                self.miniColumns[i,j] = miniColumn(id,self.column_density,self.overlap_threshold)
+                id += 1
 
     def overlap(self):
         #Compute the overlap with the current input for each column
@@ -103,9 +114,15 @@ class SpatialPool():
         pass
 
     def transform(self):
-        #Transform self.columns into a 2d numpy array ( active=1, inactive=0 )
+        #Transform self.miniColumns into a 2d numpy array ( active=1, inactive=0 )
         #returns numpy array
-        pass
+        id = 0
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.miniColumns[id].isActive():
+                    self.representation[i][j] = 1
+                else: self.representation[i][j] = 0
+        return self.representation
 
     def visualize(self):
         #Display Spatial Pooling
