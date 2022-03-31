@@ -2,12 +2,21 @@ from xml.dom.expatbuilder import parseString
 from matplotlib import pyplot, colors
 import numpy as np  
 
-potential_connections = 0.85 # % of potential connections 
-active_columns = 40 # number of 
-inactive_decrement = .008 # decrement step in permenence for de-learning
-active_increment = 0.1  # increment step for reinforcing connections
-permenence_threshold = 0.5 # the threshold that will determine if the connection is active or not
-overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
+"""
+Column ( here ) = miniColumn ( brain)
+Connection (here ) = synapsis ( brain )
+
+ARQUITECTURA:
+Cada columna está hecha por varias neuronas. 
+El Spatail pooler está hecho de varias columnas. 
+Las neuronas de una columna están connectadas en paralelo a los inputs ( potential connections )
+Las neuronas también tienen connexiones entre ellas mismas. 
+
+
+CONNEXIONES:
+Tienen un ratio de permanence: se puede modificar a través del aprendizaje. Si se superal el permenence_threshold, se considera que la connexión está activa. 
+
+"""
 
 class Connection():
     def __init__(self,input,neuron,active_increment,inactive_decrement,permenence_threshold):
@@ -106,7 +115,3 @@ class SpatialPool():
         pyplot.imshow(sdr,cmap=colormap)
         pyplot.show()
 
-col = Column(0,overlap_threshold)
-c = Connection((0,0),col,active_increment,inactive_decrement,permenence_threshold)
-print(c.connection)
-print(c.isActive())

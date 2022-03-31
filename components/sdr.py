@@ -51,17 +51,3 @@ def generate_sdr(size,sparsity):
         data[i][j] = 1
         active -= 1
     return data
-
-
-
-sparsity = 0.02 
-
-collection = []
-
-for _ in range(2):
-    sdr = generate_sdr(64,sparsity)
-    collection.append(sdr)
-
-print(f"The overlap score of these 2 sdr is: {overlap_score(collection[0],collection[1])}")
-#visualize the overlapping SDR
-viz(overlap(collection[0],collection[1]))
