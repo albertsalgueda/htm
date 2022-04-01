@@ -1,6 +1,7 @@
 from xml.dom.expatbuilder import parseString
 from matplotlib import pyplot, colors
 import numpy as np  
+import random
 
 """
 Connection (here ) = synapsis ( brain )
@@ -14,13 +15,12 @@ Las neuronas también tienen connexiones entre ellas mismas.
 
 CONNEXIONES:
 Tienen un ratio de permanence: se puede modificar a través del aprendizaje. Si se superal el permenence_threshold, se considera que la connexión está activa. 
-
 """
 
 class Connection():
-    def __init__(self,input,neuron,active_increment,inactive_decrement,permenence_threshold):
+    def __init__(self,input,neuron,active_increment=.1,inactive_decrement=.008,permenence_threshold=.5):
         self.input = input  
-        self.miniColumn = neuron.id
+        self.neuron = neuron
         self.connection = self.create_connection(input,neuron)
         self.active_increment = active_increment
         self.inactive_decrement = inactive_decrement
@@ -49,11 +49,20 @@ class Connection():
         self.connection['permenance'] -= self.inactive_decrement
 
 class Neuron():
-    def __init__(self,id,connections,miniColumn):
+    def __init__(self,id,miniColumn):
         self.id = id
-        self.connections = [connections]
+        self.connections = []
         self.state = None # Active | Inactive | Predictive
         self.miniColumn = miniColumn
+    def connect(self):
+        #TODO
+        #Establish connections to neighboring cells
+        pass
+    def addConnection(self,connection):
+        if connection not in self.connections:
+            self.connections.append(connection)
+            return True
+        else: raise Exception('This connection already exists')
     
 class miniColumn():
     def __init__(self,id,column_density,overlap_threshold):
@@ -64,11 +73,18 @@ class miniColumn():
     
     def createNeurons(self,column_density):
         #creates neurons
-        pass
+        neurons = []
+        id = 0
+        for _ in range(column_density):
+            neuron = Neuron(id,self.id)
+            neurons.append(neuron)
+        return neurons
 
-    def connect(self):
-        #connects neurons to input 
-        pass
+    def connect(self,input_bit):
+        #connects neurons to particular input. Ex: (1,1)
+        for neuron in self.neurons:
+            synapse = Connection(input,neuron.id)
+            neuron.addConnection(synapse)
 
     def overlap(self,input):
         #calculate the number of overlapping connections with input
@@ -83,23 +99,33 @@ class miniColumn():
         else: self.active = False
         return self.active
     
-
 class SpatialPool():
     def __init__(self,overlap_threshold,potential_connections,column_density=1,size=64):
         self.overlap_threshold = overlap_threshold
         self.potential_connections = potential_connections
         self.size = size
-        self.miniColumns = self.initialize(size)
         self.column_density = column_density
         self.representation = np.zeros((size,size))
+
+        self.miniColumns = self.initialize(size)
 
     def initialize(self,size):
         #create the spatial pool
         id = 0
+        miniColumns = [[0 for i in range(size)] for j in range(size)]
         for i in range(size):
             for j in range(size):
-                self.miniColumns[i,j] = miniColumn(id,self.column_density,self.overlap_threshold)
+                miniColumns[i][j] = miniColumn(id,self.column_density,self.overlap_threshold)
                 id += 1
+        return miniColumns
+    
+    def connect(self,input):
+        #creates miniColumn connections to input datapoints
+        for c in self.miniColumns:
+            for i in range(self.size):
+                for j in range(self.size):
+                    if random.random() < self.potential_connections: #create connection
+                        c.connect(input[i][j])
 
     def overlap(self):
         #Compute the overlap with the current input for each column
@@ -119,7 +145,7 @@ class SpatialPool():
         id = 0
         for i in range(self.size):
             for j in range(self.size):
-                if self.miniColumns[id].isActive():
+                if self.miniColumns[i][j].active:
                     self.representation[i][j] = 1
                 else: self.representation[i][j] = 0
         return self.representation

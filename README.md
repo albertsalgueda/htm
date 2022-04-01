@@ -2,13 +2,35 @@
 
 This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software. The aim of this project is to both understand the implementation of cortical theory while creating a simplified functional version.   
 
-Learn more [here](https://www.oktopus.io/post/machine-intelligence-and-htm-algorithms)
-
 Join the community [here](https://discord.gg/NdFm57nB)
 
-## WARNING !!!
+### WARNING !!!
 
 This project is still under development... The software is still not finished. 
+
+# ABOUT THE CODE
+
+## tester.py
+
+No-stake script to play around with the different components. You will also find a list with all the tuning parameters. 
+
+## Components 
+
+### sdr.py
+
+SDR stands for Sparse Distributed Representations. In this document you will find all methods related to SDR ( visualization, creation, operations... )
+
+### encoders.py
+
+Classes to convert semantic meaning of input data into SDR Encoders' rules are described within the file.
+
+### pooler.py
+
+Stands for Spatial Pooler. Here you will find the most relevant classes of cortical theory ( the Neuron, the miniColumn, the Connections and why not? The SpatialPooler)
+
+# ABOUT CORTICAL THEORY
+
+You can also find a well compressed summary of cortical theory [here](https://www.oktopus.io/post/htm-zip)
 
 ## Cortical Columns
 

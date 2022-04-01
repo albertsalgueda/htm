@@ -3,7 +3,7 @@ Use this document to test and experiment with the diferent components of the spa
 """
 
 from components.sdr import viz,generate_sdr,overlap,overlap_score
-from components.pooler import Connection,Neuron,Column,SpatialPool
+from components.pooler import Connection,Neuron,miniColumn,SpatialPool
 from components.encoders import TimeEncoder, WordEncoder 
 
 potential_connections = .85 # % of potential connections 
@@ -14,10 +14,10 @@ permenence_threshold = .5 # the threshold that will determine if the connection 
 overlap_threshold = 20 # numer of overlaping connections to consider that a column is active
 column_density = 4 # number of neurons per miniColumnn
 
-
 sparsity = .02 
 size = 64
 
-sdr = viz(generate_sdr(size,sparsity))
-
+input = generate_sdr(size,sparsity)
+pool = SpatialPool(overlap_threshold,potential_connections)
+viz(pool.transform())
 
