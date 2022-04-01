@@ -21,7 +21,7 @@ Tienen un ratio de permanence: se puede modificar a través del aprendizaje. Si 
 """
 
 class Connection():
-    def __init__(self,input,neuron,active_increment=.1,inactive_decrement=.008,permenence_threshold=.5):
+    def __init__(self,input,neuron,active_increment=.1,inactive_decrement=.008,permenence_threshold=.95):
         self.input = input  
         self.neuron = neuron
         self.connection = self.create_connection(input,neuron)
@@ -105,7 +105,6 @@ class miniColumn():
                 if input[i][j]==1 and self.check(input[i][j],synapses):
                     overlaps.append((i,j))
                     overlap_score += 1
-        print('overlap is ',overlap_score)
         if overlap_score >= overlap_threshold:
             self.active = True
     """
@@ -154,7 +153,7 @@ class SpatialPool():
         #Compute the overlap with the current input for each column
         print('Computing Overlap...')
         for c in tqdm(self.miniColumns):
-            print(c.id,c.active)
+            #print(c.id,c.active)
             c.overlap(input,self.overlap_threshold)
 
     def inhibition(self):
