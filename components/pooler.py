@@ -5,7 +5,6 @@ import numpy as np
 import random
 from tqdm import tqdm
 
-
 """
 Connection (here ) = synapsis ( brain )
 
@@ -41,7 +40,7 @@ class Connection():
         return synapse
 
     def isActive(self):
-        if self.connection['permenance']<= self.permenence_threshold: 
+        if self.connection['permenance']<self.permenence_threshold: 
             return True
         return False
 
@@ -72,6 +71,8 @@ class miniColumn():
         self.overlap_threshold = overlap_threshold
         self.active = False
         self.neurons = self.createNeurons(column_density)
+        self.activeConnections = []
+        self.totalConnections = []
     
     def createNeurons(self,column_density):
         #creates neurons
@@ -87,6 +88,9 @@ class miniColumn():
         for neuron in self.neurons:
             synapse = Connection(input_bit,neuron.id,permenence_threshold,inactive_decrement,active_increment)
             neuron.addConnection(synapse)
+            self.totalConnections.append(synapse)
+            if synapse.active == True: 
+                self.activeConnections.append(synapse)
     
     def check(self,input_bit,synapses):
         #returns True if a connection is active with an input bit, else: False
@@ -107,15 +111,7 @@ class miniColumn():
                     overlap_score += 1
         if overlap_score >= overlap_threshold:
             self.active = True
-    """
-    def isActive(self):
-        #calculate the number of overlapping connections 
-        overlapping = self.overlap() 
-        if overlapping >= self.overlap_threshold:
-            self.active = True  
-        else: self.active = False
-        return self.active
-    """
+
 class SpatialPool():
     def __init__(self,overlap_threshold,potential_connections,column_density,size,permenence_threshold,inactive_decrement,active_increment):
         self.overlap_threshold = overlap_threshold
