@@ -1,6 +1,6 @@
 # Hierarchical Temporal Memory (HTM)
 
-This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software. The aim of this project is to both understand the implementation of cortical theory while creating a simplified functional version.   
+This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.com/) algorithm along with visualization software. The aim of this project is to both understand the implementation of cortical theory while creating a simplified cortical learning system.   
 
 Join the community [here](https://discord.gg/NdFm57nB)
 
@@ -19,6 +19,8 @@ No-stake script to play around with the different components. You will also find
 ### sdr.py
 
 SDR stands for Sparse Distributed Representations. In this document you will find all methods related to SDR ( visualization, creation, operations... )
+
+Learn more about SDR [here](https://numenta.com/assets/pdf/biological-and-machine-intelligence/BaMI-SDR.pdf)
 
 ### encoders.py
 
