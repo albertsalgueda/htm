@@ -1,7 +1,10 @@
+from copy import deepcopy
 from xml.dom.expatbuilder import parseString
 from matplotlib import pyplot, colors
 import numpy as np  
 import random
+from tqdm import tqdm
+
 
 """
 Connection (here ) = synapsis ( brain )
@@ -33,7 +36,7 @@ class Connection():
         synapse = {
                 'input':input,
                 'neuron':neuron, 
-                'permenance':random.randint(0,100)/100
+                'permenance':float(random.randint(0,100)/100)
                 } 
         return synapse
 
@@ -61,7 +64,6 @@ class Neuron():
     def addConnection(self,connection):
         if connection not in self.connections:
             self.connections.append(connection)
-            return True
         else: raise Exception('This connection already exists')
     
 class miniColumn():
@@ -83,14 +85,30 @@ class miniColumn():
     def connect(self,input_bit):
         #connects neurons to particular input. Ex: (1,1)
         for neuron in self.neurons:
-            synapse = Connection(input,neuron.id)
+            synapse = Connection(input_bit,neuron.id)
             neuron.addConnection(synapse)
+    
+    def check(self,input_bit,synapses):
+        #returns True if a connection is active with an input bit, else: False
+        for s in synapses:
+            if s.input == input_bit and s.active:
+                return True
+        return False
 
-    def overlap(self,input):
+    def overlap(self,input,overlap_threshold):
         #calculate the number of overlapping connections with input
-        overlap = 'TODO' #TODO
-        return overlap
-
+        synapses = self.neurons[0].connections
+        overlaps = []
+        overlap_score = 0
+        for i in range(len(input)):
+            for j in range(len(input)):
+                if input[i][j]==1 and self.check(input[i][j],synapses):
+                    overlaps.append((i,j))
+                    overlap_score += 1
+        print('overlap is ',overlap_score)
+        if overlap_score >= overlap_threshold:
+            self.active = True
+    """
     def isActive(self):
         #calculate the number of overlapping connections 
         overlapping = self.overlap() 
@@ -98,38 +116,46 @@ class miniColumn():
             self.active = True  
         else: self.active = False
         return self.active
-    
+    """
 class SpatialPool():
-    def __init__(self,overlap_threshold,potential_connections,column_density=1,size=64):
+    def __init__(self,overlap_threshold,potential_connections,column_density,size):
         self.overlap_threshold = overlap_threshold
         self.potential_connections = potential_connections
         self.size = size
         self.column_density = column_density
         self.representation = np.zeros((size,size))
 
-        self.miniColumns = self.initialize(size)
+        self.miniColumns, self.space = self.initialize(size)
 
     def initialize(self,size):
         #create the spatial pool
+        print('Creating the Space Pool')
         id = 0
-        miniColumns = [[0 for i in range(size)] for j in range(size)]
-        for i in range(size):
+        space = [[0 for i in range(size)] for j in range(size)]
+        miniColumns = []
+        for i in tqdm(range(size)):
             for j in range(size):
-                miniColumns[i][j] = miniColumn(id,self.column_density,self.overlap_threshold)
+                new = miniColumn(id,self.column_density,self.overlap_threshold)
+                miniColumns.append(new)
+                space[i][j] = new
                 id += 1
-        return miniColumns
+        return miniColumns, space
     
     def connect(self,input):
         #creates miniColumn connections to input datapoints
-        for c in self.miniColumns:
+        print('Creating synapses...')
+        for c in tqdm(self.miniColumns):
             for i in range(self.size):
                 for j in range(self.size):
                     if random.random() < self.potential_connections: #create connection
                         c.connect(input[i][j])
 
-    def overlap(self):
+    def overlap(self,input):
         #Compute the overlap with the current input for each column
-        pass
+        print('Computing Overlap...')
+        for c in tqdm(self.miniColumns):
+            print(c.id,c.active)
+            c.overlap(input,self.overlap_threshold)
 
     def inhibition(self):
         #Compute the winning columns after inhibition
@@ -143,17 +169,19 @@ class SpatialPool():
         #Transform self.miniColumns into a 2d numpy array ( active=1, inactive=0 )
         #returns numpy array
         id = 0
+        copy = deepcopy(self.representation)
         for i in range(self.size):
             for j in range(self.size):
-                if self.miniColumns[i][j].active:
-                    self.representation[i][j] = 1
-                else: self.representation[i][j] = 0
-        return self.representation
+                if self.space[i][j].active:
+                    copy[i][j] = 1
+                else: copy[i][j] = 0
+        print(copy)
+        return copy
 
     def visualize(self):
         #Display Spatial Pooling
         sdr = self.transform()
-        colormap = colors.ListedColormap(["white","red"])
+        colormap = colors.ListedColormap(["black","red"])
         pyplot.figure(figsize=(5,5))
         pyplot.imshow(sdr,cmap=colormap)
         pyplot.show()
