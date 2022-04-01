@@ -21,7 +21,7 @@ Tienen un ratio de permanence: se puede modificar a través del aprendizaje. Si 
 """
 
 class Connection():
-    def __init__(self,input,neuron,active_increment=.1,inactive_decrement=.008,permenence_threshold=.95):
+    def __init__(self,input,neuron,active_increment,inactive_decrement,permenence_threshold):
         self.input = input  
         self.neuron = neuron
         self.connection = self.create_connection(input,neuron)
@@ -36,12 +36,12 @@ class Connection():
         synapse = {
                 'input':input,
                 'neuron':neuron, 
-                'permenance':float(random.randint(0,100)/100)
+                'permenance':random.random()
                 } 
         return synapse
 
     def isActive(self):
-        if self.connection['permenance']>= self.permenence_threshold: 
+        if self.connection['permenance']<= self.permenence_threshold: 
             return True
         return False
 
@@ -82,10 +82,10 @@ class miniColumn():
             neurons.append(neuron)
         return neurons
 
-    def connect(self,input_bit):
+    def connect(self,input_bit,permenence_threshold,inactive_decrement,active_increment):
         #connects neurons to particular input. Ex: (1,1)
         for neuron in self.neurons:
-            synapse = Connection(input_bit,neuron.id)
+            synapse = Connection(input_bit,neuron.id,permenence_threshold,inactive_decrement,active_increment)
             neuron.addConnection(synapse)
     
     def check(self,input_bit,synapses):
@@ -117,13 +117,16 @@ class miniColumn():
         return self.active
     """
 class SpatialPool():
-    def __init__(self,overlap_threshold,potential_connections,column_density,size):
+    def __init__(self,overlap_threshold,potential_connections,column_density,size,permenence_threshold,inactive_decrement,active_increment):
         self.overlap_threshold = overlap_threshold
         self.potential_connections = potential_connections
         self.size = size
         self.column_density = column_density
-        self.representation = np.zeros((size,size))
+        self.permenence_threshold = permenence_threshold
+        self.inactive_decrement = inactive_decrement
+        self.active_increment = active_increment
 
+        self.representation = np.zeros((size,size))
         self.miniColumns, self.space = self.initialize(size)
 
     def initialize(self,size):
@@ -147,7 +150,7 @@ class SpatialPool():
             for i in range(self.size):
                 for j in range(self.size):
                     if random.random() < self.potential_connections: #create connection
-                        c.connect(input[i][j])
+                        c.connect(input[i][j],self.permenence_threshold,self.inactive_decrement,self.active_increment)
 
     def overlap(self,input):
         #Compute the overlap with the current input for each column
