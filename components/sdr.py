@@ -39,6 +39,15 @@ def viz(sdr):
     pyplot.imshow(sdr,cmap=colormap)
     pyplot.show()
 
+def vizComplete(sdr):
+    """
+    Turn SDR into grid-like representation. We accept 2d numpy array
+    """
+    colormap = colors.ListedColormap(["black","red","yellow"])
+    pyplot.figure(figsize=(5,5))
+    pyplot.imshow(sdr,cmap=colormap)
+    pyplot.show()
+
 def generate_sdr(size,sparsity):
     """
     Randomly generate an SDR of size and sparsity

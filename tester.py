@@ -1,10 +1,9 @@
 """
 Use this document to test and experiment with the diferent components of the spatial pooler.py
 """
-from sqlite3 import SQLITE_DROP_INDEX, SQLITE_DROP_TABLE
 import time
 import numpy as np
-from components.sdr import viz,generate_sdr,overlap,overlap_score
+from components.sdr import viz,generate_sdr,overlap,overlap_score, vizComplete
 from components.pooler import Connection,Neuron,miniColumn,SpatialPool
 from components.encoders import TimeEncoder, WordEncoder 
 
@@ -16,7 +15,7 @@ overlap_threshold = 20 # numer of overlaping connections to consider that a colu
 column_density = 2 # number of neurons per miniColumnn
 
 sparsity = .02
-size = 32
+size = 100
 
 def sample():
     input = generate_sdr(size,sparsity)
@@ -39,9 +38,20 @@ def calculateConnections():
 
 def wordEncoder():
     w = WordEncoder()
-    best = w.encode('bottle')
-    #viz(best)
+    best = w.encode('queen')
+    vizComplete(best)
     #check for semantic meaning
-    better = w.encode('jar')
-    print(overlap_score(best,better))
-wordEncoder()
+    better = w.encode('king')
+    vizComplete(better)
+    print(overlap_score(best,better)) #if it was a vector, you should compute cos()
+    viz(overlap(best,better))
+
+def wordTest():
+    w = WordEncoder()
+    best = w.encode('queen')
+    pool = SpatialPool(overlap_threshold,potential_connections,column_density,size,permenence_threshold,inactive_decrement,active_increment)
+    pool.connect(best)
+    viz(pool.overlap(best))
+
+wordTest()
+

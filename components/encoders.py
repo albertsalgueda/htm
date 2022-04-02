@@ -54,7 +54,7 @@ class WordEncoder():
                 sdr[position-1] = 1
 
         elif index < 0:
-            index = abs(index)
+            index = abs(index+1)
             #we look at the first 50 positions
             position = int(index//step)
             if position >= 100: 
