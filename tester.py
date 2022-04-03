@@ -38,10 +38,10 @@ def calculateConnections():
 
 def wordEncoder():
     w = WordEncoder()
-    best = w.encode('queen')
+    best = w.encode('oat')
     vizComplete(best)
     #check for semantic meaning
-    better = w.encode('king')
+    better = w.encode('daddy')
     vizComplete(better)
     print(overlap_score(best,better)) #if it was a vector, you should compute cos()
     viz(overlap(best,better))
@@ -53,5 +53,5 @@ def wordTest():
     pool.connect(best)
     viz(pool.overlap(best))
 
-wordTest()
+wordEncoder()
 
