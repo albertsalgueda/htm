@@ -4,9 +4,9 @@ This project is a Python 3.8+ implementation of [Numenta's HTM](https://numenta.
 
 Join the community [here](https://discord.gg/NdFm57nB)
 
-### WARNING !!!
+# WARNING !!!
 
-This project is still under development... The software is still not finished. 
+This project has been moved to Oktopus.io [repo](https://github.com/oktop1s/htm)
 
 # ABOUT THE CODE
 
